@@ -1,3 +1,5 @@
 [runner]
-# Perintah ini akan dijalankan sebelum aplikasi Streamlit dimulai
-pre_run_command = "python -c 'import nltk; nltk.download(\"stopwords\")'"
+# Atur direktori data NLTK secara eksplisit sebelum aplikasi berjalan
+# Gunakan os.getcwd() untuk mendapatkan path absolut dari root proyek
+# Ini akan dijalankan sekali saat aplikasi di-deploy
+pre_run_command = "python -c 'import nltk; import os; nltk.data.path.append(os.path.join(os.getcwd(), \"nltk_data\")); nltk.download(\"stopwords\", download_dir=os.path.join(os.getcwd(), \"nltk_data\"))'"
