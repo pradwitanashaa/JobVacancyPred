@@ -15,7 +15,7 @@ import os
 # --- Streamlit Dashboard ---
 st.set_page_config(page_title="Prediksi Lowongan Kerja", layout="wide")
 
- --- Tambahkan ini di awal main.py setelah semua import ---
+# --- Tambahkan ini di awal main.py setelah semua import ---
 # Setel NLTK data path secara eksplisit
 # Di lingkungan Docker, /app adalah WORKDIR.
 # Jadi, data NLTK yang diunduh ke /app/nltk_data akan ditemukan di sini.
