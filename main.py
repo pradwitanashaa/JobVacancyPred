@@ -10,6 +10,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import SGDClassifier
 import xgboost as xgb
+import os
 
 # --- Streamlit Dashboard ---
 st.set_page_config(page_title="Prediksi Lowongan Kerja", layout="wide")
