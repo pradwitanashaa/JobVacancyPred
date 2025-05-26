@@ -15,9 +15,10 @@ import xgboost as xgb
 st.set_page_config(page_title="Prediksi Lowongan Kerja", layout="wide")
 
 # Download stopwords if not already downloaded
+# Perubahan di sini: Menggunakan if/else langsung tanpa try-except untuk DownloadError
 try:
     nltk.data.find('corpora/stopwords')
-except nltk.downloader.DownloadError:
+except LookupError: # Ganti DownloadError dengan LookupError karena itu yang pertama muncul
     nltk.download('stopwords')
 
 # --- Fungsi Preprocessing Teks ---
