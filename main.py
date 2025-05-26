@@ -10,26 +10,15 @@ from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import SGDClassifier
 import xgboost as xgb
-import os
 
 # --- Streamlit Dashboard ---
 st.set_page_config(page_title="Prediksi Lowongan Kerja", layout="wide")
 
-# --- Tambahkan ini di awal main.py setelah semua import ---
-# Setel NLTK data path secara eksplisit
-# Di lingkungan Docker, /app adalah WORKDIR.
-# Jadi, data NLTK yang diunduh ke /app/nltk_data akan ditemukan di sini.
-nltk_data_custom_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'nltk_data')
-if nltk_data_custom_path not in nltk.data.path:
-    nltk.data.path.append(nltk_data_custom_path)
-# --- Akhir penambahan ---
-
-# # Download stopwords if not already downloaded
-# # Perubahan di sini: Menggunakan if/else langsung tanpa try-except untuk DownloadError
-# try:
-#     nltk.data.find('corpora/stopwords')
-# except LookupError: # Ganti DownloadError dengan LookupError karena itu yang pertama muncul
-#     nltk.download('stopwords')
+# Download stopwords if not already downloaded
+try:
+    nltk.data.find('corpora/stopwords')
+except nltk.downloader.DownloadError:
+    nltk.download('stopwords')
 
 # --- Fungsi Preprocessing Teks ---
 port_stem = PorterStemmer()
