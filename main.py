@@ -14,6 +14,14 @@ import xgboost as xgb
 # --- Streamlit Dashboard ---
 st.set_page_config(page_title="Prediksi Lowongan Kerja", layout="wide")
 
+# --- Tambahkan ini di awal main.py setelah semua import ---
+# Setel NLTK data path secara eksplisit
+# Ini akan bekerja di lingkungan Docker karena data diunduh ke /app/nltk_data
+nltk_data_path = os.path.join(os.getcwd(), 'nltk_data') # Ini akan menjadi /app/nltk_data di container
+if nltk_data_path not in nltk.data.path:
+    nltk.data.path.append(nltk_data_path)
+# --- Akhir penambahan ---
+
 # # Download stopwords if not already downloaded
 # # Perubahan di sini: Menggunakan if/else langsung tanpa try-except untuk DownloadError
 # try:
