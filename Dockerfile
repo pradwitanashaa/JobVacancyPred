@@ -1,29 +1,25 @@
-# Gunakan base image Python yang sesuai. Sesuaikan versi Python dengan yang kamu gunakan saat training.
-# Berdasarkan traceback sebelumnya, lingkungan Streamlit Cloud menggunakan Python 3.13.
-# Namun, Python 3.13 mungkin terlalu baru untuk stabilitas semua library.
-# Jika model dilatih di 3.9/3.10/3.11, coba gunakan itu dulu.
-# Kita akan gunakan 3.9 sebagai contoh yang umum stabil.
+# Gunakan base image Python yang sesuai. Pastikan versi ini cocok dengan lingkungan training Anda.
+# Jika Anda yakin model dilatih dengan Python 3.9, gunakan 3.9. Jika di 3.13, gunakan 3.13 (namun 3.13 masih sangat baru).
+# Mari kita asumsikan 3.9 untuk kompatibilitas yang lebih luas.
 FROM python:3.9-slim-buster
-
-# Setel variabel lingkungan untuk NLTK data path
-# Ini akan menjadi direktori tempat NLTK akan mencari/menyimpan datanya secara default
-ENV NLTK_DATA /app/nltk_data
 
 # Setel direktori kerja di dalam container
 WORKDIR /app
 
 # Buat direktori untuk data NLTK
 # Gunakan -p untuk memastikan direktori induk dibuat jika belum ada
-RUN mkdir -p ${NLTK_DATA}
+RUN mkdir -p /app/nltk_data
 
 # Salin requirements.txt dan install dependensi Python
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Unduh NLTK stopwords ke direktori yang telah ditentukan
-# Karena NLTK_DATA sudah disetel, nltk.download() akan otomatis menyimpannya di sana.
-# Gunakan -q (quiet) untuk mengurangi output log
-RUN python -m nltk.downloader -d ${NLTK_DATA} stopwords
+# Unduh NLTK stopwords dan punkt (terkadang stopwords bergantung pada punkt)
+# Pastikan ini disimpan ke lokasi yang sama dengan yang diharapkan main.py
+# NLTK akan mencari di nltk.data.path, yang akan kita set di main.py.
+# Tapi kita juga bisa menyetel ENV NLTK_DATA sebagai fallback/default.
+ENV NLTK_DATA /app/nltk_data
+RUN python -m nltk.downloader -d ${NLTK_DATA} stopwords punkt
 
 # Salin sisa kode aplikasi Anda ke dalam container
 COPY . .
