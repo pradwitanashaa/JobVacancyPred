@@ -1,0 +1,3 @@
+[runner]
+# Perintah ini akan dijalankan sebelum aplikasi Streamlit dimulai
+pre_run_command = "python -c 'import nltk; nltk.download(\"stopwords\")'"
