@@ -15,12 +15,13 @@ import os
 # --- Streamlit Dashboard ---
 st.set_page_config(page_title="Prediksi Lowongan Kerja", layout="wide")
 
-# --- Tambahkan ini di awal main.py setelah semua import ---
+ --- Tambahkan ini di awal main.py setelah semua import ---
 # Setel NLTK data path secara eksplisit
-# Ini akan bekerja di lingkungan Docker karena data diunduh ke /app/nltk_data
-nltk_data_path = os.path.join(os.getcwd(), 'nltk_data') # Ini akan menjadi /app/nltk_data di container
-if nltk_data_path not in nltk.data.path:
-    nltk.data.path.append(nltk_data_path)
+# Di lingkungan Docker, /app adalah WORKDIR.
+# Jadi, data NLTK yang diunduh ke /app/nltk_data akan ditemukan di sini.
+nltk_data_custom_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'nltk_data')
+if nltk_data_custom_path not in nltk.data.path:
+    nltk.data.path.append(nltk_data_custom_path)
 # --- Akhir penambahan ---
 
 # # Download stopwords if not already downloaded
