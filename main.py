@@ -14,12 +14,12 @@ import xgboost as xgb
 # --- Streamlit Dashboard ---
 st.set_page_config(page_title="Prediksi Lowongan Kerja", layout="wide")
 
-# Download stopwords if not already downloaded
-# Perubahan di sini: Menggunakan if/else langsung tanpa try-except untuk DownloadError
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError: # Ganti DownloadError dengan LookupError karena itu yang pertama muncul
-    nltk.download('stopwords')
+# # Download stopwords if not already downloaded
+# # Perubahan di sini: Menggunakan if/else langsung tanpa try-except untuk DownloadError
+# try:
+#     nltk.data.find('corpora/stopwords')
+# except LookupError: # Ganti DownloadError dengan LookupError karena itu yang pertama muncul
+#     nltk.download('stopwords')
 
 # --- Fungsi Preprocessing Teks ---
 port_stem = PorterStemmer()
